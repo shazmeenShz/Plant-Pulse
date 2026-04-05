@@ -1,58 +1,166 @@
-# 🌱 Plant Pulse: Low-Power IoT Environmental Node
+# 🌱 Plant Pulse — Low Power IoT Plant Monitoring Node
 
-> **Node Zero Competition Project**
-> A custom-designed PCB engineered to solve the "IoT Power Problem" for remote environmental monitoring.
+![3D Render](./3D_renedered_primary_PlantPulseNode5.png)
+![3D Render 2](./3D_renedered2.png)
+![PCB Layout](./Layout_PCB_PlantPulseNode7.png)
+![Schematic](./Schematic_PlantPulseNode1.png)
 
-**Author:** Shazmeen Siddiqui
+---
 
-**Academic Info:** B.Tech Electrical and Computing Engineering (4th Semester)
+## 👩‍💻 Author
 
-**University:** Jamia Millia Islamia
+**Shazmeen Siddiqui**
+B.Tech Electrical and Computing Engineering (4th Semester)
+Jamia Millia Islamia
 
-## 📁 Repository Structure
+---
 
-**Note:** All project files, including project goals, component parts lists, schematics, and KiCad design files, are located directly in the **root directory** of this repository.
+## 🚀 Project Overview
 
-## 📌 Hardware Overview
+Plant Pulse is a **low-power IoT-based plant monitoring system** designed to eliminate the need for constant manual checking of plant health.
 
-The Plant Pulse hardware was built to solve a major bottleneck in remote monitoring: the "IoT Power Problem." Most smart monitoring devices drain their batteries in a matter of days, which simply replaces the chore of manual plant monitoring with the chore of constant battery recharging.
+This project originated from a real-world problem — repeated failure to maintain plant health due to lack of consistent monitoring and actionable data.
 
-This custom PCB was designed to execute a strict **Wake-Sense-Transmit-Sleep** cycle. By aggressively managing power consumption, the board is engineered to run for months on a single cell battery.
+Instead of relying on guesswork, Plant Pulse provides:
 
-### Core Components
+* 📊 Environmental data monitoring
+* 🔋 Ultra low power operation
+* 🤖 Autonomous sensing and reporting
 
-* **Microcontroller:** ESP32 (Handles processing and WiFi transmission)
+---
 
-* **Environmental Sensor:** BME280 (Monitors temperature, humidity, and atmospheric pressure)
+## 💡 Problem Statement
 
-## ⚡ Schematic & Power Architecture
+Most plant care failures are not due to negligence, but due to:
 
-The standout feature of this board's schematic is its custom power-gating strategy.
+* Lack of real-time environmental data
+* Inconsistent monitoring habits
+* Inefficient IoT systems that require frequent charging
 
-* **P-Channel MOSFET Switch:** To prevent the sensors from idling and draining the battery while the system sleeps, the design incorporates a P-channel MOSFET. This allows the ESP32 to effectively "gate" the power, physically cutting off the voltage to the sensors when they aren't actively taking readings. This completely eliminates unnecessary idle current draw, exponentially increasing battery life.
+Traditional IoT devices introduce a **"Power Problem"**:
 
-## 🛠️ PCB Layout & Design (KiCad)
+> Devices run out of battery quickly, replacing one manual task with another.
 
-The board was designed and routed using **KiCad**, with a strict focus on keeping the footprint compact while ensuring robust RF performance and power stability.
+---
 
-### Critical Design Choices:
+## ⚙️ Technical Architecture
 
-* **Antenna Clearance Keep-Out Zone:** To ensure the WiFi signal remains strong and reliable, a strict clearance area (keep-out zone) was maintained around the ESP32 antenna. No copper pours or traces were routed in this section to prevent signal degradation and interference.
+### 🧠 Core Components
 
-### Troubleshooting & Hardware Revisions
+* **ESP32 MCU** — Main processing and communication unit
+* **BME280 Sensor** — Temperature, humidity, and pressure sensing
+* **P-Channel MOSFET** — Power gating control
 
-Building the board required real-world iterations to achieve perfect stability. Here are the hurdles crossed during development:
+---
 
-1. **Resolving Power Instability:** Initial testing revealed that power spikes during WiFi transmission were causing the ESP32 to unexpectedly reset. This was resolved by designing a decoupling network and adding **100nF and 10µF capacitors** to smooth out voltage drops.
+### 🔑 Key Design Innovation
 
-2. **Footprint Mismatch Correction:** During assembly, a footprint dimension error was discovered for the BME280 sensor. The pad dimensions had to be manually corrected within the EDA tool to ensure accurate placement and reliable soldering.
+The system implements **power gating using a P-channel MOSFET**:
+
+* Sensors are **completely powered OFF** when not in use
+* Eliminates idle current draw
+* Dramatically increases battery life
+
+This enables true low-power operation beyond standard sleep modes.
+
+---
+
+## 🔄 System Workflow
+
+The device operates in a cyclical model:
+
+```
+Wake → Sense → Transmit → Sleep
+```
+
+### Cycle Breakdown:
+
+1. **Wake** — ESP32 wakes from deep sleep
+2. **Sense** — Powers sensors and collects data
+3. **Transmit** — Sends data via WiFi
+4. **Sleep** — Returns to ultra-low power state
+
+---
+
+## 🧩 Hardware Design
+
+### 🛠 PCB Design
+
+* Designed using **KiCad**
+* Compact and optimized layout
+* Careful routing for reliability
+
+### 📡 RF Considerations
+
+* Antenna keep-out zone maintained
+* Ensures strong and stable WiFi signal
+
+---
+
+## 🔧 Challenges & Solutions
+
+### ⚡ Power Instability
+
+* Issue: MCU resets during operation
+* Fix: Added decoupling capacitors
+
+  * 100nF (high-frequency noise filtering)
+  * 10µF (bulk stabilization)
+
+### 📦 Footprint Mismatch
+
+* Issue: Incorrect BME280 footprint
+* Fix: Manually corrected pad dimensions in KiCad
+
+### 📶 Signal Integrity
+
+* Issue: Poor antenna performance
+* Fix: Maintained strict antenna clearance zone
+
+---
+
+## 📊 Features
+
+* 🔋 Ultra low power consumption
+* 🌐 Wireless data transmission
+* 📈 Real-time environmental monitoring
+* 🔌 Hardware-level power optimization
+* 🧠 Autonomous operation
+
+---
 
 ## 🌍 Applications
 
-*This hardware is built as a modular, low-power solution ready for real-world deployment.* While initially inspired by a dying houseplant, the architecture is highly scalable and perfect for:
+* 🌾 Smart Agriculture
+* 🏡 Home Automation
+* 🏭 Industrial Monitoring
+* 🌿 Indoor Plant Care Systems
 
-* **Smart Agriculture & Farming**
+---
 
-* **Automated Greenhouses**
+## 📈 Future Improvements
 
-* **Industrial Warehouse Environmental Monitoring**
+* Solar charging integration
+* Mobile/web dashboard
+* AI-based plant health prediction
+* Multi-node mesh networking
+
+---
+
+## 🏁 Conclusion
+
+Plant Pulse transforms plant care from a manual, error-prone task into a **data-driven autonomous system**.
+
+What started as a simple problem evolved into a scalable IoT solution with real-world applications across multiple domains.
+
+---
+
+## 🙌 Acknowledgment
+
+Developed as part of the **Node Zero Competition**.
+
+---
+
+## 📬 Contact
+
+Feel free to reach out for collaboration or discussion!
